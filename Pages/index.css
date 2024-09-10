@@ -5,8 +5,7 @@
 @import url("../blocks/content.css");
 @import url("../blocks/footer.css");
 @import url("../blocks/profile.css");
-@import url("../blocks/cards.css");
-@import url("../blocks/cards.css");
+@import url("../blocks/card.css");
 
 .page {
   background-color: black;
@@ -24,6 +23,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .header {
@@ -84,44 +85,6 @@
 
 .cards {
   margin-top: 30px;
-}
-
-.card__list {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 17px 20px;
-  padding: 0;
-  margin: 0;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  border-radius: 10px;
-}
-.card__image {
-  width: 282px;
-  height: 282px;
-}
-
-.card__description {
-  display: flex;
-  background-color: white;
-  color: black;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  padding-left: 20px;
-  padding-right: 20px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card__like-button {
-  background: transparent url(../images/like-button.svg);
-  width: 21px;
-  height: 18px;
 }
 
 @media screen and (max-width: 480px) {
