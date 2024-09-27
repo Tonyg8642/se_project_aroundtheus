@@ -9,9 +9,11 @@
 .header_image {
   margin-bottom: 41px;
 }
-
+@media screen and (max-width: 882px) {
 .header {
     margin-left: 0;
     margin-right: 0;
     padding-left: 27px;
   }
+}
+    
