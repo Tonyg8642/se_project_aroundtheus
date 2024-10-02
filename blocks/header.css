@@ -6,9 +6,10 @@
   max-width: 880px;
 }
 
-.header_image {
+.header__image {
   margin-bottom: 41px;
 }
+
 @media screen and (max-width: 882px) {
   .header {
     margin-left: 0;
@@ -16,3 +17,6 @@
     padding-left: 27px;
   }
 }
+
+
+.profile__image-container {}
