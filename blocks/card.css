@@ -1,4 +1,4 @@
-.card__list {
+.cards__list {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -13,10 +13,15 @@
   list-style: none;
   border-radius: 10px;
   overflow: hidden;
+  max-width: 282px;
 }
 
 .card__title {
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 230px;
 }
 .card__image {
   width: 282px;
