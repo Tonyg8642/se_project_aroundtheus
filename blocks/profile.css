@@ -3,6 +3,7 @@
   align-items: center;
   padding-top: 40px;
   justify-content: space-between;
+  margin-bottom: 51px;
 }
 
 .profile__image-container {
@@ -49,6 +50,9 @@
   grid-area: title;
   margin: 0;
   font-family: "Inter", Arial, Helvetica, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__description {
