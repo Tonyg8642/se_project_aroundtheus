@@ -100,26 +100,25 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
 }
-  }
 
-  .profile__add-button {
-    width: 100%;
-    margin-top: 36px;
-    max-width: 282px;
-  }
+.profile__add-button {
+  width: 100%;
+  margin-top: 36px;
+  max-width: 282px;
+}
 
-  .profile__title {
-    font-size: 22px;
-    line-height: 27px;
-  }
+.profile__title {
+  font-size: 22px;
+  line-height: 27px;
+}
 
-  .profile__image {
-    margin-bottom: 30px;
-    margin-right: 0px;
-  }
+.profile__image {
+  margin-bottom: 30px;
+  margin-right: 0px;
+}
 
-  .profile__edit-button {
-    margin-left: 10px;
-  }
+.profile__edit-button {
+  margin-left: 10px;
 }
