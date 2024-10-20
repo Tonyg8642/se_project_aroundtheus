@@ -14,4 +14,8 @@
     margin-right: 0;
     padding-left: 27px;
   }
+  .header__image {
+    width: 126px;
+    height: 24px;
+  }
 }
