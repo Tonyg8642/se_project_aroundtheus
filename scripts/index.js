@@ -25,4 +25,4 @@ const initialCards = [
   },
 ];
 
-console.log(cardData.title);
+console.log(cardData?.title);
