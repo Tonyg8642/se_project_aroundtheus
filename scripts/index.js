@@ -66,7 +66,7 @@ function getCardElement(cardData) {
 function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
-  profileDescriptionInput.textContent = profileDescriptionInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
   closePopup();
 }
 
