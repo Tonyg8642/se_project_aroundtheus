@@ -22,9 +22,9 @@
   margin: auto;
   border-radius: 10px;
   max-width: 430px;
-  padding: 30px;
+  padding: 36px;
   box-sizing: border-box;
-  min-width: 358px;
+  width: 100%;
 }
 
 .modal__heading {
@@ -81,7 +81,8 @@
 @media screen and (max-width: 882px) {
   .modal__container {
     width: 282px;
-    height: 322px;
+    padding: 25px 22px;
+  
   }
   .modal__heading {
     width: 238px;
@@ -93,12 +94,16 @@
   }
   .modal__close {
     height: 26px;
+    bottom: calc(100% + 18px);
+    left: auto;
+    right: -6px;
   }
   .modal__input {
     height: 27px;
   }
   .modal__button {
     height: 46px;
+    font-size: 14px;
   }
 
 }
