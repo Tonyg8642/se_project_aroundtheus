@@ -25,14 +25,22 @@ const initialCards = [
   },
 ];
 
+//wrappers
+const cardsWrap = document.querySelector(".cards__list");
+const editProfileModal = document.querySelector("#edit-modal");
+const profileFormElement = document.querySelector(".modal__form");
+
+
 //Elemnts
 
 const profileEditBtn = document.querySelector("#profile__edit-button");
-const profileEditModal = document.querySelector("#profile__edit-Modal");
+const profileEditModal = document.querySelector("#profile__edit-Modal"); //selects the id in index.html
 const profileCloseBtn = document.querySelector("#profile-close-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const profileTitleInput = document.querySelector("#profile-title-input");
+
+//Form data
+const profileTitleInput = document.querySelector(".modal__input_type_name");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
@@ -80,6 +88,8 @@ profileCloseBtn.addEventListener("click", closePopup);
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
+
+//(cardData)calls the cards above.
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
   cardListEl.prepend(cardElement);

@@ -12,6 +12,7 @@
   visibility: hidden;
 }
 
+/* makes modal become visible */
 .modal_opened {
   visibility: visible;
 }
@@ -42,6 +43,7 @@
   /* width: 358px; */
 }
 
+/* changes the cursor to point */
 .modal__close {
   border: none;
   background-color: transparent;
@@ -78,11 +80,11 @@
   margin-top: 18px;
 }
 
+/* splits screen into two. One for phone and other for laptop */
 @media screen and (max-width: 882px) {
   .modal__container {
     width: 282px;
     padding: 25px 22px;
-  
   }
   .modal__heading {
     width: 238px;
@@ -105,5 +107,4 @@
     height: 46px;
     font-size: 14px;
   }
-
 }
