@@ -1,3 +1,4 @@
+//creating a variable called "inital cards" and storying an area that contains the six objects below
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,42 +26,91 @@ const initialCards = [
   },
 ];
 
-//wrappers
+//the code below from line  #33-#37 is an assignment statement that creates a varible
+//and assigns the value to the variable
+//line #36 pulls from index.html file cards list class
+//the left hand side "const ..." is the name of the varible
+//the right hand side is the value being stored in that value
+//the const cardsWrap on line #34 uses querySelector to select the cards list
+//above from lines #2-#27
 const cardsWrap = document.querySelector(".cards__list");
-const editProfileModal = document.querySelector("#edit-modal");
-const profileFormElement = document.querySelector(".modal__form");
-
+const editProfileModal = document.querySelector("#profile__edit-modal");
+//gets the div and its children from #46-#72
+const addCardModal = document.querySelector("#add-card-modal");
+const addCardForm = addCardModal.querySelector(".modal__form");
+const profileFormElement = editProfileModal.querySelector(".modal__form");
 
 //Elemnts
 
 const profileEditBtn = document.querySelector("#profile__edit-button");
-const profileEditModal = document.querySelector("#profile__edit-Modal"); //selects the id in index.html
-const profileCloseBtn = document.querySelector("#profile-close-button");
+
+//below, the code narrows down the search instead of searching the entire html file it goes to
+//the specific code required.
+const profileModalCloseBtn = editProfileModal.querySelector(
+  "#profile-close-button"
+);
+const profileAddCardModalCloseBtn = addCardModal.querySelector(
+  "#profile-close-button"
+);
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
+const addNewButton = document.querySelector(".profile__add-button");
 
 //Form data
-const profileTitleInput = document.querySelector(".modal__input_type_name");
+const profileTitleInput = document.querySelector(".modal__input_type_title");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileEditForm = editProfileModal.querySelector(".modal__form");
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
-function closePopup() {
-  profileEditModal.classList.remove("modal_opened");
+//The (modal) is called an arguement
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
+//function openModal() {
+// name.Input.value = profileTitle.textContent;
+// jobInput.value = profileDescription.textContent;
+
+// editProfileModal.classList.add("modal_is-opened");
+//}
+
+//the (modal) is called the arguemnt in the code below
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+}
+
+//this entire function from line #83-#93 takes care of the entire function in terms of
+//getting a new card on our page.
 function getCardElement(cardData) {
-  //clone the template element with all its content and store it in a cardElement variable
   const cardElement = cardTemplate.cloneNode(true);
   console.log(cardElement);
-  //access the card title and image and store them in variables
+
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-button");
+
+  //find delete button
+
+  const deleteButton = cardElement.querySelector(".card__delete-button")
+
+  //add the event listerner to the delete button
+
+  deleteButton.addEventListener("click", () => {
+    deleteButton.classList.toggle('card__delete-button_active')
+  });
+  //cardElement.remove();
+  //add click listener to the cardImage element
+  //openModal with previewImageModal
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
+  });
+
   //set the path to the image to the link field of the object
   cardImageEl.src = cardData.link;
   //set the image alt text to the name field of the object
@@ -72,25 +122,42 @@ function getCardElement(cardData) {
 }
 
 function handleProfileEditSubmit(e) {
-  e.preventDefault();
+  e.preventDefult();
   profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
+  profileDescriptionInput.value = profileDescription.textContent;
+  closePopup(editProfileModal);
 }
 
 profileEditBtn.addEventListener("click", () => {
+  openModal(editProfileModal);
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal_opened");
+  openModal(editProfileModal);
 });
 
-profileCloseBtn.addEventListener("click", closePopup);
-
+profileModalCloseBtn.addEventListener("click", () => {
+  closeModal(editProfileModal);
+});
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
+//add new card button. The click first, then openModal does the action
+addNewButton.addEventListener("click", () => openModal(add - card - modal));
+profileAddCardModalCloseBtn.addEventListener("click", () =>
+  closeModal(addCardModal)
+);
 
 //(cardData)calls the cards above.
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
   cardListEl.prepend(cardElement);
 });
+
+//The querySelectoryAll in the code below selects all the like button in the index.html file
+//the dot in .card__like-button means class.
+//Ask ELIJH ABOUT THE CODE BELOW THIS COMMENT SO YOU KNOW HOW TO DO IT ON YOUR OWN
+//STEP BY STEP
+//likeButtons.forEach(likeButton => {
+// likeButton.addEventListener('click', () => {
+// console.log("click");
+const likeButtons = document.querySelectorAll(".card__like-button");
+likeButtons.forEach((likeButton) => {});

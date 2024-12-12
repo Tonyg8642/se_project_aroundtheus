@@ -43,8 +43,35 @@
         <p class="footer__text">© 2022 Around The U.S</p>
       </footer>
     </div>
-
-    <div class="modal" id="profile__edit-Modal">
+    <div class="modal" id="profile__edit-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="profile-close-button"
+          type="button"
+        ></button>
+        <p class="modal__heading">Edit Profile</p>
+        <form class="modal__form">
+          <input
+            class="modal__input"
+            type="text"
+            name="title"
+            id="profile-title-input"
+            placeholder="Title"
+          />
+          <input
+            class="modal__input"
+            type="text"
+            name="description"
+            id="profile-description-input"
+            placeholder="Description"
+          />
+          <button class="modal__button">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- The importance of the "id" is significant because it very specific to distingquish between two elements -->
+    <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button
           class="modal__close"
@@ -53,8 +80,9 @@
         ></button>
         <p class="modal__heading">New Place</p>
         <form class="modal__form" id="add-card-form">
+          <!-- -->
           <input
-            class="modal__input modal__input_type_name"
+            class="modal__input modal__input_type_title"
             type="text"
             name="title"
             id="profile-title-input"
@@ -74,6 +102,7 @@
 
     <template id="card-template">
       <li class="card">
+        <button class="card__delete-button">Delete</button>
         <img src="" class="card__image" alt="" />
         <div class="card__description">
           <h2 class="card__title"></h2>
