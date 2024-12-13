@@ -41,7 +41,7 @@ const editProfileModal = document.querySelector("#profile__edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const profileFormElement = editProfileModal.querySelector(".modal__form");
-const addCardFormElement = add.CardModal.querySelector(".modal__form");
+const addCardFormElement = addCardModal.querySelector(".modal__form");
 
 //Elemnts
 
@@ -142,7 +142,7 @@ function handleProfileEditSubmit(e) {
   profileTitle.textContent = profileTitleInput.value;
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  renderCard ({name, link}, cardsWrap);
+  renderCard({ name, link }, cardsWrap);
   profileDescriptionInput.value = profileDescription.textContent;
   closePopup(editProfileModal);
 }
@@ -155,7 +155,7 @@ function renderCard(cardData) {
 }
 
 profileEditBtn.addEventListener("click", () => {
-  openModal(editProfileModal);
+  // openModal(editProfileModal);
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
   openModal(editProfileModal);
@@ -167,15 +167,15 @@ profileModalCloseBtn.addEventListener("click", () => {
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 //add new card button. The click first, then openModal does the action
-addNewButton.addEventListener("click", () => openModal(add - card - modal));
+addNewButton.addEventListener("click", () => openModal(addCardModal));
 profileAddCardModalCloseBtn.addEventListener("click", () =>
   closeModal(addCardModal)
 );
 
 //ASK ABOUT WHAT THIS CODE DOES BELOW STEP BY STEP
-initialCards.forEach((cardData, wrapper) => {
+initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
-  wrapper.prepend(cardElement);
+  cardsWrap.prepend(cardElement);
 });
 
 //Form Listeners
@@ -190,11 +190,11 @@ addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 // likeButton.addEventListener('click', () => {
 // console.log("click");
 
-//The code below this line is the old code. Why was it changed and how would you know how 
+//The code below this line is the old code. Why was it changed and how would you know how
 //or when to change it? ASK AND DONT FORGET!!
 
 //const likeButtons = document.querySelectorAll(".card__like-button");
 //likeButtons.forEach((likeButton) => {});
 
 //The code below is the new updated one
-initialCards.forEach((cardData) => renderCard (cardData, cardsWrap));
+initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
