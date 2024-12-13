@@ -33,12 +33,15 @@ const initialCards = [
 //the right hand side is the value being stored in that value
 //the const cardsWrap on line #34 uses querySelector to select the cards list
 //above from lines #2-#27
+//line 43 searches from inside the index.html only looks inside the AddCard Modal
+//from index.html from line ##74
 const cardsWrap = document.querySelector(".cards__list");
 const editProfileModal = document.querySelector("#profile__edit-modal");
 //gets the div and its children from #46-#72
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const profileFormElement = editProfileModal.querySelector(".modal__form");
+const addCardFormElement = add.CardModal.querySelector(".modal__form");
 
 //Elemnts
 
@@ -62,6 +65,12 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
+//The  const cardTitleInput = addCardFormElement.querySelector('.modal__input_type_title') searches
+//inside the div class index.html from line #85
+const cardTitleInput = addCardFormElement.querySelector(
+  ".modal__input_type_title"
+);
+const cardUrlInput = addCardFormElement.querySelector(".modal__input_type_url");
 const profileEditForm = editProfileModal.querySelector(".modal__form");
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
@@ -96,12 +105,12 @@ function getCardElement(cardData) {
 
   //find delete button
 
-  const deleteButton = cardElement.querySelector(".card__delete-button")
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   //add the event listerner to the delete button
 
   deleteButton.addEventListener("click", () => {
-    deleteButton.classList.toggle('card__delete-button_active')
+    deleteButton.classList.toggle("card__delete-button_active");
   });
   //cardElement.remove();
   //add click listener to the cardImage element
@@ -121,11 +130,28 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
+function handleAddCardFormSubmit(e) {
+  evt.preventDefult();
+  const titleValue = cardTitleInput.value;
+  const cardElement = getCardElement();
+  closePopup(addCardModal);
+}
+
 function handleProfileEditSubmit(e) {
   e.preventDefult();
   profileTitle.textContent = profileTitleInput.value;
+  const name = cardTitleInput.value;
+  const link = cardUrlInput.value;
+  renderCard ({name, link}, cardsWrap);
   profileDescriptionInput.value = profileDescription.textContent;
   closePopup(editProfileModal);
+}
+
+//The function renderCard takes in the CardData for adding a new card
+// it grabs the CardElement & its going to call "getCardElement" and its going to
+//pass in "CardData"
+function renderCard(cardData) {
+  const CardElement = getCardElement(cardData);
 }
 
 profileEditBtn.addEventListener("click", () => {
@@ -146,11 +172,15 @@ profileAddCardModalCloseBtn.addEventListener("click", () =>
   closeModal(addCardModal)
 );
 
-//(cardData)calls the cards above.
-initialCards.forEach((cardData) => {
+//ASK ABOUT WHAT THIS CODE DOES BELOW STEP BY STEP
+initialCards.forEach((cardData, wrapper) => {
   const cardElement = getCardElement(cardData);
-  cardListEl.prepend(cardElement);
+  wrapper.prepend(cardElement);
 });
+
+//Form Listeners
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 //The querySelectoryAll in the code below selects all the like button in the index.html file
 //the dot in .card__like-button means class.
@@ -159,5 +189,12 @@ initialCards.forEach((cardData) => {
 //likeButtons.forEach(likeButton => {
 // likeButton.addEventListener('click', () => {
 // console.log("click");
-const likeButtons = document.querySelectorAll(".card__like-button");
-likeButtons.forEach((likeButton) => {});
+
+//The code below this line is the old code. Why was it changed and how would you know how 
+//or when to change it? ASK AND DONT FORGET!!
+
+//const likeButtons = document.querySelectorAll(".card__like-button");
+//likeButtons.forEach((likeButton) => {});
+
+//The code below is the new updated one
+initialCards.forEach((cardData) => renderCard (cardData, cardsWrap));
