@@ -5,6 +5,8 @@
   border-radius: 10px;
   overflow: hidden;
   max-width: 282px;
+  position: relative;
+  white-space: nowrap;
 }
 
 .card__title {
@@ -46,4 +48,16 @@
 .card__like-button:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+.card__image-delete {
+  width: 18px;
+}
+
+.card__delete-button {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
 }
