@@ -37,7 +37,7 @@ const addCardModalCloseBtn = addCardModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const addNewButton = document.querySelector(".profile__add-button");
-const profileTitleInput = document.querySelector(".modal__input_type_title");
+const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
