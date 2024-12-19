@@ -25,13 +25,19 @@
 .modal__container {
   position: relative;
   background-color: #fff;
-  /* margin: auto; */
+  margin: auto; 
   border-radius: 10px;
   max-width: 430px;
   padding: 36px;
   box-sizing: border-box;
   width: 100%;
 }
+
+.modal__image-container{
+  margin: auto;
+  position: relative;
+}
+
 .modal__container .modal_preview {
   padding: 0;
   background: none;
@@ -102,6 +108,7 @@
 .modal__image {
   width: 100%;
   object-fit: contain;
+  max-width: 800px;
 }
 
 /* splits screen into two. One for phone and other for laptop */
@@ -131,4 +138,11 @@
     height: 46px;
     font-size: 14px;
   }
+}
+
+@media screen and (max-width: 882px) {
+.modal__image {
+  width: 240px;
+  height: ;
+}  
 }
