@@ -11,6 +11,7 @@
   padding: 0 19px;
   visibility: hidden;
   opacity: 0;
+  margin: 0;
   transition: visibility 0s, opacity 0.5s linear;
 }
 
@@ -24,12 +25,25 @@
 .modal__container {
   position: relative;
   background-color: #fff;
-  margin: auto;
+  /* margin: auto; */
   border-radius: 10px;
   max-width: 430px;
   padding: 36px;
   box-sizing: border-box;
   width: 100%;
+}
+.modal__container .modal_preview {
+  padding: 0;
+  background: none;
+}
+
+.modal__container_preview {
+  display: flex;
+  max-width: 75vw;
+  max-height: 75vw;
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
 }
 
 .modal__heading {
@@ -54,8 +68,9 @@
   background-image: url("../images/Close-Icon.svg");
   cursor: pointer;
   position: absolute;
-  bottom: calc(100% + 5px);
-  left: calc(100% + 5px);
+  padding: 0;
+  top: -45px;
+  right: -45px;
   width: 40px;
   height: 40px;
   background-repeat: no-repeat;
@@ -82,6 +97,11 @@
   line-height: 22px;
   font-weight: 400;
   margin-top: 18px;
+}
+
+.modal__image {
+  width: 100%;
+  object-fit: contain;
 }
 
 /* splits screen into two. One for phone and other for laptop */
