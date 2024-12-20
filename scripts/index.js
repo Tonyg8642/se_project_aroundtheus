@@ -35,6 +35,10 @@ const profileModalCloseBtn = editProfileModal.querySelector(
 );
 const addCardModalCloseBtn = addCardModal.querySelector(".modal__close");
 const imgModal = document.querySelector("#image-modal");
+
+//The code below selects the close button from the index.html file. 
+//just to confirm do console.log after
+const imgModalCloseBtn = imgModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const addNewButton = document.querySelector(".profile__add-button");
@@ -125,6 +129,11 @@ profileEditBtn.addEventListener("click", () => {
 profileModalCloseBtn.addEventListener("click", () =>
   closeModal(editProfileModal)
 );
+
+
+// Adding a click event listener to the imgModal close button 
+//calling our closeModal function when the button which is the x button
+imgModalCloseBtn.addEventListener("click", () => closeModal(imgModal));
 
 addNewButton.addEventListener("click", () => openModal(addCardModal));
 addCardModalCloseBtn.addEventListener("click", () => closeModal(addCardModal));
