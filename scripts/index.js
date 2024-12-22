@@ -33,10 +33,11 @@ const profileEditBtn = document.querySelector("#profile__edit-button");
 const profileModalCloseBtn = editProfileModal.querySelector(
   "#profile-close-button"
 );
+const modalCaption = document.querySelector(".modal__caption");
 const addCardModalCloseBtn = addCardModal.querySelector(".modal__close");
 const imgModal = document.querySelector("#image-modal");
 
-//The code below selects the close button from the index.html file. 
+//The code below selects the close button from the index.html file.
 //just to confirm do console.log after
 const imgModalCloseBtn = imgModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
@@ -46,6 +47,8 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+const modalImage = document.querySelector(".modal__image");
+
 const cardTitleInput = addCardModal.querySelector(".modal__input_type_title");
 const cardUrlInput = addCardModal.querySelector(".modal__input_type_url");
 const profileEditForm = editProfileModal.querySelector(".modal__form");
@@ -80,9 +83,10 @@ function getCardElement(cardData) {
   });
 
   cardImageEl.addEventListener("click", () => {
-    openModal(imgModal);
-    const modalImage = document.querySelector(".modal__image");
     modalImage.src = cardImageEl.src;
+    modalImage.alt = cardData.name;
+    modalCaption.textContent = cardData.name;
+    openModal(imgModal);
   });
 
   deleteButton.addEventListener("click", () => {
@@ -130,8 +134,7 @@ profileModalCloseBtn.addEventListener("click", () =>
   closeModal(editProfileModal)
 );
 
-
-// Adding a click event listener to the imgModal close button 
+// Adding a click event listener to the imgModal close button
 //calling our closeModal function when the button which is the x button
 imgModalCloseBtn.addEventListener("click", () => closeModal(imgModal));
 
@@ -143,3 +146,5 @@ addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 // Render initial cards
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
+
+//There should be a caption under the image in the picture popup with the name of the
