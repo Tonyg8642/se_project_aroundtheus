@@ -122,6 +122,9 @@
   max-height: 70vh;
 }
 
+
+
+
 /* splits screen into two. One for phone and other for laptop */
 @media screen and (max-width: 882px) {
   .modal__container {

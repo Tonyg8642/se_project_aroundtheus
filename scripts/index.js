@@ -26,6 +26,7 @@ const initialCards = [
 ];
 
 // DOM Elements
+//tells JavaScript, "This is the spot where we’ll put the cards!"
 const cardsWrap = document.querySelector(".cards__list");
 const editProfileModal = document.querySelector("#profile__edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");

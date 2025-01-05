@@ -58,7 +58,11 @@
             name="title"
             id="profile-title-input"
             placeholder="Title"
+            minlength="2"
+            maxlength="40"
+            required
           />
+          <span class="pop__error" id="profile-title-input-error"></span>
           <input
             class="modal__input"
             type="text"
@@ -66,7 +70,10 @@
             id="profile-description-input"
             placeholder="Description"
           />
-          <button class="modal__button">Save</button>
+          <span class="pop__error"></span>
+          <button class="modal__button popup__button_disabled" disabled>
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -108,7 +115,6 @@
       </div>
     </div>
 
-   
     <template id="card-template">
       <li class="card">
         <button class="card__delete-button">
@@ -121,6 +127,7 @@
         </div>
       </li>
     </template>
-    <script src="./scripts/index.js"></script>
+    <script defer src="./scripts/index.js"></script>
+    <script defer src="./scripts/validation.js"></script>
   </body>
 </html>
