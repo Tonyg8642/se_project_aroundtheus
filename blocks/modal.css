@@ -122,7 +122,9 @@
   max-height: 70vh;
 }
 
-
+.modal__error_visible {
+  color: #ff0000;
+}
 
 
 /* splits screen into two. One for phone and other for laptop */
