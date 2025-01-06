@@ -33,38 +33,58 @@ function hasInvalidInput(inputList) {
 
 //disableFunction task
 
-function disabledButton(submitButton, { inactiveButtonClass }) {
-  submitButton.classList.add(inactiveButtonClass);
-  submitButton.disabled = true;
-}
+// function disabledButton(submitButton, inactiveButtonClass) {
+//   submitButton.classList.add(inactiveButtonClass);
+//   submitButton.disabled = true;
+// }
 
-function enableButton(submitButton, { inactiveButtonClass }) {
-  submitButton.classList.remove(inactiveButtonClass);
-  submitButton.disabled = false;
-}
+// function enableButton(submitButton, inactiveButtonClass) {
+//   submitButton.classList.remove(inactiveButtonClass);
+//   submitButton.disabled = false;
+// }
 
 //EnableFunction task
 
-function toggleButtonState(inputEls) {
+function toggleButtonState(inputEls, submitButton, inactiveButtonClass) {
   if (hasInvalidInput(inputEls)) {
-    disabledButton();
+    // disabledButton(submitButton, inactiveButtonClass);
+    submitButton.classList.add(inactiveButtonClass);
+    submitButton.disabled = true;
   } else {
-    enableButton();
+    // enableButton();
+    submitButton.classList.remove(inactiveButtonClass);
+    submitButton.disabled = false;
   }
 }
+
+//document.addEventListener("keydown", closeModalOnEsc);
+
+//This listens for any key presses on the entire document.
+//Check for the Escape Key:
+
+//if (event.key === "Escape") ensures the function runs only when the Escape key is pressed.
+//Find Open Modal:
+
+//document.querySelector(".modal_opened") finds the currently open popup (modal).
+//Close the Modal:
+
+//Calls the closeModal function on the modal found, removing it from the screen.
 
 //look for all inputs inside of form. Using the const inputsEls then formEls querySelectorAll
 //looks for everything inside the form tag in your index.html file
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
   const inputEls = Array.from(formEl.querySelectorAll(inputSelector));
-  const submitButton = formEl.querySelector(".modal__button");
+  const submitButton = formEl.querySelector(options.submitButtonSelector);
+  console.log(submitButton);
   //loop through all the inputs to see if all are valid
+
+  toggleButtonState(inputEls, submitButton);
 
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {
       checkInputValidity(formEl, inputEl, options);
-      toggleButtonState(inputEls, submitButton, options);
+      toggleButtonState(inputEls, submitButton, options.inactiveButtonClass);
     });
   });
 }

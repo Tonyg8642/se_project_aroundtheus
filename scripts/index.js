@@ -62,6 +62,18 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
+function closeModalOnEsc(event) {
+  if (event.key === "Escape") {
+    const openModal = document.querySelector(".modal_opened");
+    if (openModal) {
+      closeModal(openModal);
+    }
+  }
+}
+
+// Add event listener to listen for key presses
+document.addEventListener("keydown", closeModalOnEsc);
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
 }
