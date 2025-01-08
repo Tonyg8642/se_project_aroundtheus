@@ -71,11 +71,18 @@ function closeModalOnEsc(event) {
   }
 }
 
+function handleOverlayClick(evt) {
+  if (evt.target.classList.contains("modal")) {
+    const openModal = document.querySelector(".modal_opened");
+    closeModal(openModal);
+  }
+}
+
 // Add event listener to listen for key presses
 document.addEventListener("keydown", closeModalOnEsc);
-
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  modal.addEventListener("click", handleOverlayClick);
 }
 
 function getCardElement(cardData) {
