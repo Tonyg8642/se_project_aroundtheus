@@ -60,6 +60,8 @@ const cardTemplate =
 // Helper Functions
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  modal.removeEventListener("click", handleOverlayClick);
+  document.removeEventListener("keydown", closeModalOnEsc);
 }
 
 function closeModalOnEsc(event) {
@@ -71,18 +73,26 @@ function closeModalOnEsc(event) {
   }
 }
 
+//This function allows for the modal to close when clicking outside of the modal
+//What it does: Defines a function named handleOverlayClick.
+//Purpose: Reacts to a click event (evt) on the modal.
+//if (evt.target.classList.contains("modal")) { What it does: Checks if the element that was clicked (evt.target) has a CSS class named modal.
+//Purpose: Ensures the function only runs if the click was on the modal overlay.
+//"const openModal = document.querySelector(".modal_opened");"
+//"closeModal(openModal);". What it does: Calls the closeModal function and passes the currently opened modal (openModal) to it.
+//Purpose: Closes the modal window.
 function handleOverlayClick(evt) {
   if (evt.target.classList.contains("modal")) {
-    const openModal = document.querySelector(".modal_opened");
-    closeModal(openModal);
+    //const openModal = document.querySelector(".modal_opened");
+    closeModal(evt.target);
   }
 }
 
-// Add event listener to listen for key presses
-document.addEventListener("keydown", closeModalOnEsc);
 function openModal(modal) {
   modal.classList.add("modal_opened");
   modal.addEventListener("click", handleOverlayClick);
+  // Add event listener to listen for key presses
+  document.addEventListener("keydown", closeModalOnEsc);
 }
 
 function getCardElement(cardData) {
