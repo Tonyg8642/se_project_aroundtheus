@@ -110,6 +110,11 @@
   cursor: pointer;
 }
 
+.modal__button_disabled {
+  opacity: 20%;
+  pointer-events: none;
+}
+
 .modal__button:hover {
   cursor: pointer;
 }
@@ -124,7 +129,6 @@
 .modal__error_visible {
   color: #ff0000;
 }
-
 
 /* splits screen into two. One for phone and other for laptop */
 @media screen and (max-width: 882px) {
