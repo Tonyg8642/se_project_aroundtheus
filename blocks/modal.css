@@ -20,6 +20,10 @@
   opacity: 1;
 }
 
+.modal__label {
+  position: relative;
+}
+
 .modal__container {
   position: relative;
   background-color: #fff;
@@ -97,6 +101,10 @@
   line-height: 17px;
 }
 
+.modal__input_type_error {
+  border-bottom: 1px solid red;
+}
+
 .modal__button {
   /* width: 358px;*/
   height: 50px;
@@ -128,6 +136,19 @@
 
 .modal__error_visible {
   color: #ff0000;
+  margin-bottom: 13px;
+  height: 30px;
+  font-size: 12px;
+  margin-top: -30px;
+  padding-top: 5px;
+}
+
+.modal__error {
+  height: 30px;
+  font-size: 12px;
+  margin-top: -30px;
+  padding-top: 5px;
+  margin-bottom: 13px;
 }
 
 /* splits screen into two. One for phone and other for laptop */
