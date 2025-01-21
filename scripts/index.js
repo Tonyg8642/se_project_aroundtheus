@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +26,19 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+// This is your extension of your card.js class
+// Your card.js is expecting a destructured name and link which is coming from cardData
+// Your card.js is then expecting a cardSelector, which is this case is "#card-template"
+const card = new Card(cardData, "#card-template");
+// Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
+card.getView();
+
 
 // DOM Elements
 //tells JavaScript, "This is the spot where we’ll put the cards!"
@@ -119,12 +134,14 @@ function getCardElement(cardData) {
     openModal(imgModal);
   });
 
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  //deleteButton.addEventListener("click", handleDeleteCard);
 
+  function handleDeleteCard () {
+    cardElement.remove();
+  }
   return cardElement;
 }
+
 
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
