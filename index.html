@@ -62,7 +62,10 @@
             maxlength="40"
             required
           />
-          <span class="modal__error" id="profile-title-input-error"></span>
+          <span
+            class="modal__error_visible"
+            id="profile-title-input-error"
+          ></span>
           <input
             class="modal__input"
             type="text"
@@ -74,7 +77,7 @@
             required
           />
           <span
-            class="modal__error"
+            class="modal__error_visible"
             id="profile-description-input-error"
           ></span>
           <button class="modal__button modal__button_disabled" disabled>
@@ -104,7 +107,7 @@
             maxlength="40"
             required
           />
-          <span class="modal__input-error" id="add-card-title-error"></span>
+          <span class="modal__error_visible" id="add-card-title-error"></span>
           <input
             class="modal__input modal__input_type_url"
             type="url"
@@ -113,8 +116,10 @@
             placeholder="Image URL"
             required
           />
-          <span class="modal__url-error" id="add-card-url-error"></span>
-          <button class="modal__button modal__button_disabled" disabled>Save</button>
+          <span class="modal__error_visible" id="add-card-url-error"></span>
+          <button class="modal__button modal__button_disabled" disabled>
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -132,7 +137,7 @@
         <button class="card__delete-button">
           <img src="./images/Active trash.svg" class="card__image-delete" />
         </button>
-        <img src="./images/Active trash.svg" class="card__image" alt="" />
+        <img src="#" class="card__image" alt="" />
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button class="card__like-button" type="button"></button>
@@ -140,6 +145,5 @@
       </li>
     </template>
     <script defer src="./scripts/index.js" type="module"></script>
-   
   </body>
 </html>

@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-
+import FormValidator from "../components/FormValidator.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -27,6 +27,15 @@ const initialCards = [
   },
 ];
 
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: ".modal__error_visible",
+};
+
 const cardData = {
   name: "Yosemite Valley",
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -38,7 +47,6 @@ const cardData = {
 const card = new Card(cardData, "#card-template");
 // Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
 card.getView();
-
 
 // DOM Elements
 //tells JavaScript, "This is the spot where we’ll put the cards!"
@@ -71,6 +79,13 @@ const profileEditForm = editProfileModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
+
+const editProfileFormValidator = new FormValidator(config, profileEditForm);
+console.log("line 87");
+editProfileFormValidator.enableValidation();
+
+const addCardFormValidator = new FormValidator(config, addCardFormElement);
+addCardFormValidator.enableValidation();
 
 // Helper Functions
 function closeModal(modal) {
@@ -110,6 +125,11 @@ function openModal(modal) {
   document.addEventListener("keydown", closeModalOnEsc);
 }
 
+// pass to card constructor
+function handleImageClick(name, link) {
+  // ...
+}
+
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
@@ -136,28 +156,22 @@ function getCardElement(cardData) {
 
   //deleteButton.addEventListener("click", handleDeleteCard);
 
-  function handleDeleteCard () {
+  function handleDeleteCard() {
     cardElement.remove();
   }
   return cardElement;
 }
 
-
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
   const name = cardTitleInput.value.trim();
   const link = cardUrlInput.value.trim();
-
-  if (name && link) {
-    renderCard({ name, link }, cardsWrap);
-    cardTitleInput.value = "";
-    cardUrlInput.value = "";
-    closeModal(addCardModal);
-  } else {
-    alert("Please fill out both fields!");
-  }
+  renderCard({ name, link }, cardsWrap);
+  cardTitleInput.value = "";
+  cardUrlInput.value = "";
+  closeModal(addCardModal);
+  addCardFormValidator.disabledButtonState();
 }
-
 function handleProfileEditSubmit(event) {
   event.preventDefault();
   profileTitle.textContent = profileTitleInput.value.trim();
@@ -166,7 +180,9 @@ function handleProfileEditSubmit(event) {
 }
 
 function renderCard(cardData, container) {
-  const cardElement = getCardElement(cardData);
+  const card = new Card(cardData, "#card-template");
+  // Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
+  const cardElement = card.getView();
   container.prepend(cardElement);
 }
 

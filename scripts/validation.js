@@ -130,7 +130,7 @@ const config = {
   submitButtonSelector: ".modal__button",
   inactiveButtonClass: "modal__button_disabled",
   inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
+  errorClass: ".modal__error_visible",
 };
 //STEP: 3...........
 //This calles "enableValidation" and passes config

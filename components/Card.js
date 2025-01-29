@@ -38,8 +38,19 @@ export default class Card {
       .content.querySelector(".card")
       .cloneNode(true);
     console.log(this._cardElement);
+
+    // select title and image elements
+    this._cardImageElement = this._cardElement.querySelector(".card__image");
+    const cardTitleEl = this._cardElement.querySelector(".card__title");
+    cardTitleEl.textContent = this._name;
+    this._cardImageElement.src = this._link;
+
+    // set the src, textContent and alt text
+    this._cardImageElement.alt = this._name;
+
     //get card View
     this._setEventListeners();
     //return the card
+    return this._cardElement;
   }
 }
