@@ -4,6 +4,7 @@ export default class Card {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleImageClick = handleImageClick;
   }
 
   _setEventListeners() {
@@ -18,10 +19,17 @@ export default class Card {
     //."card__delete-button"
     this._cardElement
       .querySelector(".card__delete-button")
-      .addEventListener("click", this._handleDeleteCard);
+      .addEventListener("click", () => {
+        this._handleDeleteCard();
+      });
+
+    this._cardImageElement.addEventListener("click", () => {
+      console.log("hey we mad eit here");
+      this._handleImageClick({ name: this._name, link: this._link });
+    });
   }
 
-  _handleDeleteCard(evt) {
+  _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -42,16 +50,15 @@ export default class Card {
     // select title and image elements
     this._cardImageElement = this._cardElement.querySelector(".card__image");
     const cardTitleEl = this._cardElement.querySelector(".card__title");
-    cardTitleEl.textContent = this._name
+    cardTitleEl.textContent = this._name;
     this._cardImageElement.src = this._link;
 
     // set the src, textContent and alt text
-    this._cardImageElement.alt = this._name
-
+    this._cardImageElement.alt = this._name;
 
     //get card View
     this._setEventListeners();
     //return the card
-    return this._cardElement
+    return this._cardElement;
   }
 }

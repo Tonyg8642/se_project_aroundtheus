@@ -126,7 +126,12 @@ function openModal(modal) {
 }
 
 // pass to card constructor
-function handleImageClick(name, link) {
+function handleImageClick({ name, link }) {
+  console.log({ name, link });
+  modalImage.src = link;
+  modalImage.alt = name;
+  modalCaption.textContent = name;
+  openModal(imgModal);
   // ...
 }
 
@@ -148,6 +153,7 @@ function getCardElement(cardData) {
   });
 
   cardImageEl.addEventListener("click", () => {
+    console.log("heres your card click event bro");
     modalImage.src = cardImageEl.src;
     modalImage.alt = cardData.name;
     modalCaption.textContent = cardData.name;
@@ -180,7 +186,7 @@ function handleProfileEditSubmit(event) {
 }
 
 function renderCard(cardData, container) {
-  const card = new Card(cardData, "#card-template");
+  const card = new Card(cardData, "#card-template", handleImageClick);
   // Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
   const cardElement = card.getView();
   container.prepend(cardElement);
