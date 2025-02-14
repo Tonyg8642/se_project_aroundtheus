@@ -135,4 +135,5 @@ const config = {
 //STEP: 3...........
 //This calles "enableValidation" and passes config
 //What you pass () below is going to be the perameter on line 7()
+//ask about the code above step by step. Study each step
 enableValidation(config);
