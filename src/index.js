@@ -1,7 +1,8 @@
 import "./pages/index.css";
-
+import PopupWithForm from "./components/PopupWithForm.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
+import PopupWithImage from "./components/PopupWithImage";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -53,12 +54,46 @@ card.getView();
 // DOM Elements
 //tells JavaScript, "This is the spot where we’ll put the cards!"
 const cardsWrap = document.querySelector(".cards__list");
-const editProfileModal = document.querySelector("#profile__edit-modal");
+
+const editProfileModalEl = document.querySelector("#profile__edit-modal");
+const profileEditForm = editProfileModalEl.querySelector(".modal__form");
+
+const editProfileModal = new PopupWithForm({
+  popupSelector: "#profile__edit-modal",
+  handleFormSubmit: () => {
+    profileTitle.textContent = profileTitleInput.value.trim();
+    profileDescription.textContent = profileDescriptionInput.value.trim();
+
+    // move functionality for submit here
+  },
+});
+editProfileModal.setEventListeners();
+
+const addCardPopup = new PopupWithForm({
+  popupSelector: "#add-card-modal",
+  handleFormSubmit: () => {
+    const name = cardTitleInput.value.trim();
+    const link = cardUrlInput.value.trim();
+    renderCard({ name, link }, cardsWrap);
+    cardTitleInput.value = "";
+    cardUrlInput.value = "";
+    addCardFormValidator.disabledButtonState();
+  },
+});
+
+addCardPopup.setEventListeners();
+
+const popupWithImage = new PopupWithImage("#image-modal");
+popupWithImage.setEventListeners();
+
+// create const for add modal with new popupwith form
+//and add event listener
+
 const addCardModal = document.querySelector("#add-card-modal");
 const profileEditBtn = document.querySelector("#profile__edit-button");
-const profileModalCloseBtn = editProfileModal.querySelector(
-  "#profile-close-button"
-);
+// const profileModalCloseBtn = editProfileModal.querySelector(
+//   "#profile-close-button"
+// );
 const modalCaption = document.querySelector(".modal__caption");
 const addCardModalCloseBtn = addCardModal.querySelector(".modal__close");
 const imgModal = document.querySelector("#image-modal");
@@ -77,7 +112,7 @@ const modalImage = document.querySelector(".modal__image");
 
 const cardTitleInput = addCardModal.querySelector(".modal__input_type_title");
 const cardUrlInput = addCardModal.querySelector(".modal__input_type_url");
-const profileEditForm = editProfileModal.querySelector(".modal__form");
+
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -90,20 +125,15 @@ const addCardFormValidator = new FormValidator(config, addCardFormElement);
 addCardFormValidator.enableValidation();
 
 // Helper Functions
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  modal.removeEventListener("click", handleOverlayClick);
-  document.removeEventListener("keydown", closeModalOnEsc);
-}
 
-function closeModalOnEsc(event) {
-  if (event.key === "Escape") {
-    const openModal = document.querySelector(".modal_opened");
-    if (openModal) {
-      closeModal(openModal);
-    }
-  }
-}
+// function closeModalOnEsc(event) {
+//   if (event.key === "Escape") {
+//     const openModal = document.querySelector(".modal_opened");
+//     if (openModal) {
+//       closeModal(openModal);
+//     }
+//   }
+// }
 
 //This function allows for the modal to close when clicking outside of the modal
 //What it does: Defines a function named handleOverlayClick.
@@ -113,28 +143,31 @@ function closeModalOnEsc(event) {
 //"const openModal = document.querySelector(".modal_opened");"
 //"closeModal(openModal);". What it does: Calls the closeModal function and passes the currently opened modal (openModal) to it.
 //Purpose: Closes the modal window.
-function handleOverlayClick(evt) {
-  if (evt.target.classList.contains("modal")) {
-    //const openModal = document.querySelector(".modal_opened");
-    closeModal(evt.target);
-  }
-}
+// function handleOverlayClick(evt) {
+//   if (evt.target.classList.contains("modal")) {
+//     //const openModal = document.querySelector(".modal_opened");
+//     closeModal(evt.target);
+//   }
+// }
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  modal.addEventListener("click", handleOverlayClick);
-  // Add event listener to listen for key presses
-  document.addEventListener("keydown", closeModalOnEsc);
-}
+// function openModal(modal) {
+//   modal.classList.add("modal_opened");
+//   modal.addEventListener("click", handleOverlayClick);
+//   // Add event listener to listen for key presses
+//   document.addEventListener("keydown", closeModalOnEsc);
+//
+// }
 
 // pass to card constructor
 function handleImageClick({ name, link }) {
-  console.log({ name, link });
-  modalImage.src = link;
-  modalImage.alt = name;
-  modalCaption.textContent = name;
-  openModal(imgModal);
-  // ...
+  // console.log({ name, link });
+  // modalImage.src = link;
+  // modalImage.alt = name;
+  // modalCaption.textContent = name;
+  // // openModal(imgodal);
+  // // ...
+  // imgModal.open();
+  popupWithImage.open({ name, link });
 }
 
 function getCardElement(cardData) {
@@ -153,13 +186,13 @@ function getCardElement(cardData) {
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
-
+  // choose between redundant code function on 137
   cardImageEl.addEventListener("click", () => {
     console.log("heres your card click event bro");
     modalImage.src = cardImageEl.src;
     modalImage.alt = cardData.name;
     modalCaption.textContent = cardData.name;
-    openModal(imgModal);
+    imgModal.open();
   });
 
   //deleteButton.addEventListener("click", handleDeleteCard);
@@ -168,23 +201,6 @@ function getCardElement(cardData) {
     cardElement.remove();
   }
   return cardElement;
-}
-
-function handleAddCardFormSubmit(event) {
-  event.preventDefault();
-  const name = cardTitleInput.value.trim();
-  const link = cardUrlInput.value.trim();
-  renderCard({ name, link }, cardsWrap);
-  cardTitleInput.value = "";
-  cardUrlInput.value = "";
-  closeModal(addCardModal);
-  addCardFormValidator.disabledButtonState();
-}
-function handleProfileEditSubmit(event) {
-  event.preventDefault();
-  profileTitle.textContent = profileTitleInput.value.trim();
-  profileDescription.textContent = profileDescriptionInput.value.trim();
-  closeModal(editProfileModal);
 }
 
 function renderCard(cardData, container) {
@@ -198,22 +214,18 @@ function renderCard(cardData, container) {
 profileEditBtn.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-  openModal(editProfileModal);
+  editProfileModal.open();
 });
 
-profileModalCloseBtn.addEventListener("click", () =>
-  closeModal(editProfileModal)
-);
+addNewButton.addEventListener("click", () => {
+  addCardPopup.open();
+});
 
 // Adding a click event listener to the imgModal close button
 //calling our closeModal function when the button which is the x button
-imgModalCloseBtn.addEventListener("click", () => closeModal(imgModal));
+imgModalCloseBtn.addEventListener("click", () => closeModal(imgModal)); //use new .close
 
-addNewButton.addEventListener("click", () => openModal(addCardModal));
-addCardModalCloseBtn.addEventListener("click", () => closeModal(addCardModal));
-
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
+addCardModalCloseBtn.addEventListener("click", () => addCardPopup.close());
 
 // Render initial cards
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
