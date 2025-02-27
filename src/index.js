@@ -3,6 +3,8 @@ import PopupWithForm from "./components/PopupWithForm.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import PopupWithImage from "./components/PopupWithImage";
+import Section from "./components/Section";
+import UserInfo from "./components/UserInfo";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -58,12 +60,20 @@ const cardsWrap = document.querySelector(".cards__list");
 const editProfileModalEl = document.querySelector("#profile__edit-modal");
 const profileEditForm = editProfileModalEl.querySelector(".modal__form");
 
+const userInfo = new UserInfo({
+  UserNameSelector: ".profile__title",
+  UserDescriptionSelector: ".profile__description",
+});
+
+console.log(userInfo.getUserInfo());
+
 const editProfileModal = new PopupWithForm({
   popupSelector: "#profile__edit-modal",
-  handleFormSubmit: () => {
-    profileTitle.textContent = profileTitleInput.value.trim();
-    profileDescription.textContent = profileDescriptionInput.value.trim();
+  //
+  handleFormSubmit: (formValues) => {
 
+    // use data from formValues instead of accessing .value directly
+    userInfo.setUserInfo({ userName: formValues.title, userDescription: formValues.description });
     // move functionality for submit here
   },
 });
@@ -71,7 +81,7 @@ editProfileModal.setEventListeners();
 
 const addCardPopup = new PopupWithForm({
   popupSelector: "#add-card-modal",
-  handleFormSubmit: () => {
+  handleFormSubmit: (formvalues) => {
     const name = cardTitleInput.value.trim();
     const link = cardUrlInput.value.trim();
     renderCard({ name, link }, cardsWrap);
@@ -95,14 +105,10 @@ const profileEditBtn = document.querySelector("#profile__edit-button");
 //   "#profile-close-button"
 // );
 const modalCaption = document.querySelector(".modal__caption");
-const addCardModalCloseBtn = addCardModal.querySelector(".modal__close");
 const imgModal = document.querySelector("#image-modal");
 
 //The code below selects the close button from the index.html file.
 //just to confirm do console.log after
-const imgModalCloseBtn = imgModal.querySelector(".modal__close");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
 const addNewButton = document.querySelector(".profile__add-button");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
@@ -207,13 +213,15 @@ function renderCard(cardData, container) {
   const card = new Card(cardData, "#card-template", handleImageClick);
   // Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
   const cardElement = card.getView();
+  // use section class's addItem
   container.prepend(cardElement);
 }
 
 // Event Listeners
 profileEditBtn.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  const currentUserInfo = userInfo.getUserInfo();
+  profileTitleInput.value = currentUserInfo.userName;
+  profileDescriptionInput.value = currentUserInfo.userDescription;
   editProfileModal.open();
 });
 
@@ -223,11 +231,18 @@ addNewButton.addEventListener("click", () => {
 
 // Adding a click event listener to the imgModal close button
 //calling our closeModal function when the button which is the x button
-imgModalCloseBtn.addEventListener("click", () => closeModal(imgModal)); //use new .close
-
-addCardModalCloseBtn.addEventListener("click", () => addCardPopup.close());
+// TODO remove
+// { items: initialCards, renderer: function that gets called to add each item to DOM }
+const section = new Section({
+  items: initialCards,
+  renderer: (data) => {
+    section.addItem(createCard(data));
+  },
+});
+// call renderItems()
 
 // Render initial cards
+// Section class's renderItems will replace
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
 
 //There should be a caption under the image in the picture popup with the name of the
