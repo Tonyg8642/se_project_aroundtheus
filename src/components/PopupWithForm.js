@@ -9,7 +9,6 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    this._popupForm.reset(); // Ensure the form resets
     super.close(); // Call parent class close method
   }
 
@@ -18,7 +17,7 @@ export default class PopupWithForm extends Popup {
   // return the object
 
   _getInputValues() {
-    let values = {};
+    const values = {};
     this._inputList.forEach((input) => {
       values[input.name] = input.value;
     });
@@ -32,6 +31,7 @@ export default class PopupWithForm extends Popup {
       // PAss the _getInputValues() return value to this function
       this._handleFormSubmit(this._getInputValues());
       this.close(); // Close after submission
+      this._popupForm.reset(); // Ensure the form resets
     });
   }
 }

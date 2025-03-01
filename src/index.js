@@ -5,53 +5,7 @@ import FormValidator from "./components/FormValidator.js";
 import PopupWithImage from "./components/PopupWithImage";
 import Section from "./components/Section";
 import UserInfo from "./components/UserInfo";
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: ".modal__error_visible",
-};
-
-const cardData = {
-  name: "Yosemite Valley",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-};
-
-// This is your extension of your card.js class
-// Your card.js is expecting a destructured name and link which is coming from cardData
-// Your card.js is then expecting a cardSelector, which is this case is "#card-template"
-const card = new Card(cardData, "#card-template");
-// Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
-card.getView();
+import { initialCards, config } from "./utils/constants";
 
 // DOM Elements
 //tells JavaScript, "This is the spot where we’ll put the cards!"
@@ -71,9 +25,11 @@ const editProfileModal = new PopupWithForm({
   popupSelector: "#profile__edit-modal",
   //
   handleFormSubmit: (formValues) => {
-
     // use data from formValues instead of accessing .value directly
-    userInfo.setUserInfo({ userName: formValues.title, userDescription: formValues.description });
+    userInfo.setUserInfo({
+      userName: formValues.title,
+      userDescription: formValues.description,
+    });
     // move functionality for submit here
   },
 });
