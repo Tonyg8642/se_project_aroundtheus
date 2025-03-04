@@ -15,8 +15,8 @@ const editProfileModalEl = document.querySelector("#profile__edit-modal");
 const profileEditForm = editProfileModalEl.querySelector(".modal__form");
 
 const userInfo = new UserInfo({
-  UserNameSelector: ".profile__title",
-  UserDescriptionSelector: ".profile__description",
+  userNameSelector: ".profile__title",
+  userDescriptionSelector: ".profile__description",
 });
 
 console.log(userInfo.getUserInfo());
@@ -37,12 +37,15 @@ editProfileModal.setEventListeners();
 
 const addCardPopup = new PopupWithForm({
   popupSelector: "#add-card-modal",
-  handleFormSubmit: (formvalues) => {
-    const name = cardTitleInput.value.trim();
-    const link = cardUrlInput.value.trim();
-    renderCard({ name, link }, cardsWrap);
-    cardTitleInput.value = "";
-    cardUrlInput.value = "";
+  handleFormSubmit: (data) => {
+    section.addItem(renderCard(data));
+    addCardFormElement.reset();
+
+    // const name = cardTitleInput.value.trim();
+    // const link = cardUrlInput.value.trim();
+    // renderCard({ name, link }, cardsWrap);
+    // cardTitleInput.value = "";
+    // cardUrlInput.value = "";
     addCardFormValidator.disabledButtonState();
   },
 });
@@ -165,12 +168,13 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
-function renderCard(cardData, container) {
+function renderCard(cardData, cardsWrap) {
+  console.log(cardData);
   const card = new Card(cardData, "#card-template", handleImageClick);
   // Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
   const cardElement = card.getView();
+  return cardElement;
   // use section class's addItem
-  container.prepend(cardElement);
 }
 
 // Event Listeners
@@ -189,16 +193,20 @@ addNewButton.addEventListener("click", () => {
 //calling our closeModal function when the button which is the x button
 // TODO remove
 // { items: initialCards, renderer: function that gets called to add each item to DOM }
-const section = new Section({
-  items: initialCards,
-  renderer: (data) => {
-    section.addItem(createCard(data));
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      section.addItem(renderCard(data));
+    },
   },
-});
-// call renderItems()
+  ".cards__list"
+  // cardsWrap.prepend('');
+);
 
 // Render initial cards
 // Section class's renderItems will replace
-initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
+// initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
+section.renderItems(initialCards);
 
 //There should be a caption under the image in the picture popup with the name of the
