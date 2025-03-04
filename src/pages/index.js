@@ -1,11 +1,11 @@
-import "./pages/index.css";
-import PopupWithForm from "./components/PopupWithForm.js";
-import Card from "./components/Card.js";
-import FormValidator from "./components/FormValidator.js";
-import PopupWithImage from "./components/PopupWithImage";
-import Section from "./components/Section";
-import UserInfo from "./components/UserInfo";
-import { initialCards, config } from "./utils/constants";
+import "./index.css";
+import PopupWithForm from "../components/PopupWithForm.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import PopupWithImage from "../components/PopupWithImage";
+import Section from "../components/Section";
+import UserInfo from "../components/UserInfo";
+import { initialCards, config } from "../utils/constants";
 
 // DOM Elements
 //tells JavaScript, "This is the spot where we’ll put the cards!"
