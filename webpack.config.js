@@ -48,7 +48,6 @@ module.exports = {
       },
     ],
   },
-  //changed file
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
