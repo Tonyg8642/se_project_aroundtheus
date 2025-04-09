@@ -9,6 +9,32 @@
 .profile__image-container {
   display: flex;
   align-items: center;
+  /* position: relative; */
+}
+
+.profile__image-layout {
+  position: relative;
+}
+
+.profile__avatar-button {
+  position: absolute;
+  background: transparent url(../images/Profile-Edit.svg) center no-repeat;
+  border: none;
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  left: 27%;
+  top: 45%;
+  /* visibility: hidden;  */
+  opacity: 0;
+}
+
+.profile__image-layout:hover {
+  opacity: 0.8;
+}
+
+.profile__image-layout:hover .profile__avatar-button {
+  opacity: 1;
 }
 
 .profile__info {
