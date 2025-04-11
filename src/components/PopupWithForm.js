@@ -27,8 +27,7 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       // PAss the _getInputValues() return value to this function
       this._handleFormSubmit(this._getInputValues());
-      this.close(); // Close after submission
-      this._popupForm.reset(); // Ensure the form resets
+       // Close after submission
     });
   }
 updateButtonText (textContent) {

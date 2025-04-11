@@ -28,20 +28,23 @@ const api = new Api({
 
 let section;
 
-api.getInitialCards().then((cards) => {
-  console.log(cards);
-  section = new Section(
-    {
-      items: cards,
-      renderer: (data) => {
-        section.addItem(renderCard(data));
+api
+  .getInitialCards()
+  .then((cards) => {
+    console.log(cards);
+    section = new Section(
+      {
+        items: cards,
+        renderer: (data) => {
+          section.addItem(renderCard(data));
+        },
       },
-    },
-    ".cards__list"
-    // cardsWrap.prepend('');
-  );
-  section.renderItems();
-});
+      ".cards__list"
+      // cardsWrap.prepend('');
+    );
+    section.renderItems();
+  })
+  .catch((err) => console.error(`Error adding card: ${err}`));
 
 api
   .getUserInfo()
@@ -58,6 +61,7 @@ api
 const userInfo = new UserInfo({
   userNameSelector: ".profile__title",
   userDescriptionSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
 const deleteConfirmation = new DeleteConfirmation({
@@ -97,6 +101,7 @@ const editProfileModal = new PopupWithForm({
           userName: userData.name,
           userDescription: userData.about,
         });
+        editProfileModal.close();
       })
       .catch((e) => {
         console.log(e);
@@ -114,13 +119,15 @@ const editAvatarModal = new PopupWithForm({
   popupSelector: "#avatar__modal",
   //
   handleFormSubmit: (formValues) => {
+    console.log("hi", formValues);
     editAvatarModal.updateButtonText("Saving...");
     api
-      .editProfileInfo(formValues)
+      .updateUserAvatar(formValues)
       .then((userData) => {
-        userInfo.setUserInfo({
-          // finish setting the user info
-        });
+        console.log(userData);
+        //userInfo.setUserInfo({ // TODO: change to the setUserInfo and pass the correct data inside
+        //});
+        userInfo.setAvatar(formValues.avatar);
       })
       .catch((e) => {
         console.log(e);
@@ -254,38 +261,47 @@ function handleImageClick({ name, link }) {
   popupWithImage.open({ name, link });
 }
 
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-
-  // Set up card content
-  cardImageEl.src = cardData.link;
-  cardImageEl.alt = cardData.name;
-  cardTitleEl.textContent = cardData.name;
-
-  // Add event listeners
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-  // choose between redundant code function on 137
-  cardImageEl.addEventListener("click", () => {
-    console.log("heres your card click event bro");
-    modalImage.src = cardImageEl.src;
-    modalImage.alt = cardData.name;
-    modalCaption.textContent = cardData.name;
-    imgModal.open();
-  });
-
-  //deleteButton.addEventListener("click", handleDeleteCard);
-
-  function handleDeleteCard() {
-    cardElement.remove();
-  }
-  return cardElement;
+function handleLikeClick(card, cardId) {
+  api
+    .likeCard(cardId)
+    .then(() => {
+      card.updateLikeButton();
+    })
+    .catch((err) => console.error(`Error adding card: ${err}`));
 }
+
+// function getCardElement(cardData) {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   const cardImageEl = cardElement.querySelector(".card__image");
+//   const cardTitleEl = cardElement.querySelector(".card__title");
+//   const likeButton = cardElement.querySelector(".card__like-button");
+//   const deleteButton = cardElement.querySelector(".card__delete-button");
+
+//   // Set up card content
+//   cardImageEl.src = cardData.link;
+//   cardImageEl.alt = cardData.name;
+//   cardTitleEl.textContent = cardData.name;
+
+//   // Add event listeners
+//   likeButton.addEventListener("click", () => {
+//     likeButton.classList.toggle("card__like-button_active");
+//   });
+//   // choose between redundant code function on 137
+//   cardImageEl.addEventListener("click", () => {
+//     console.log("heres your card click event bro");
+//     modalImage.src = cardImageEl.src;
+//     modalImage.alt = cardData.name;
+//     modalCaption.textContent = cardData.name;
+//     imgModal.open();
+//   });
+
+//   //deleteButton.addEventListener("click", handleDeleteCard);
+
+//   function handleDeleteCard() {
+//     cardElement.remove();
+//   }
+//   return cardElement;
+// }
 
 function renderCard(cardData, cardsWrap) {
   console.log(cardData);
@@ -293,7 +309,8 @@ function renderCard(cardData, cardsWrap) {
     cardData,
     "#card-template",
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    handleLikeClick
   );
   // Inside your card.js you have a PUBLIC function called getView, here you are calling your Card.js function
   const cardElement = card.getView();
