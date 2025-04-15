@@ -7,6 +7,7 @@ export default class Card {
     handleLikeClick
   ) {
     this._data = data;
+    this._isLiked = data.isLiked;
     console.log(data);
     this._name = data.name;
     this._link = data.link;
@@ -53,9 +54,8 @@ export default class Card {
   }
 
   updateLikeButton() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.add("card__like-button_active");
+    this._likeIconElement.classList.toggle("card__like-button_active");
+    
   }
   // _handleDeleteCard() {
   //   this._cardElement.remove();

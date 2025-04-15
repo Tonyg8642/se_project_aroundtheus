@@ -53,6 +53,7 @@ api
       userName: userData.name,
       userDescription: userData.about,
     });
+    userInfo.setAvatar(userData.avatar);
   })
   .catch((e) => {
     console.log(e);
@@ -70,9 +71,14 @@ const deleteConfirmation = new DeleteConfirmation({
     console.log("deleting this card =>", card);
     // TODO: call the delete card API method
 
-    api.deleteCard(_id).then(() => {
-      card.remove();
-    });
+    api
+      .deleteCard(_id)
+      .then(() => {
+        card.remove();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   },
 });
 deleteConfirmation.setEventListeners();
@@ -128,6 +134,7 @@ const editAvatarModal = new PopupWithForm({
         //userInfo.setUserInfo({ // TODO: change to the setUserInfo and pass the correct data inside
         //});
         userInfo.setAvatar(formValues.avatar);
+        editAvatarModal.close();
       })
       .catch((e) => {
         console.log(e);
@@ -262,12 +269,22 @@ function handleImageClick({ name, link }) {
 }
 
 function handleLikeClick(card, cardId) {
-  api
-    .likeCard(cardId)
-    .then(() => {
-      card.updateLikeButton();
-    })
-    .catch((err) => console.error(`Error adding card: ${err}`));
+  console.log(card._data.isLiked);
+  if (!card._data.isLiked) {
+    api
+      .likeCard(cardId)
+      .then(() => {
+        card.updateLikeButton();
+      })
+      .catch((err) => console.error(`Error adding card: ${err}`));
+  } else {
+    api
+      .dislikeCard(cardId)
+      .then(() => {
+        card.updateLikeButton();
+      })
+      .catch((err) => console.error(`Error adding card: ${err}`));
+  }
 }
 
 // function getCardElement(cardData) {
