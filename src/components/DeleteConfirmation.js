@@ -13,7 +13,6 @@ export default class DeleteConfirmation extends Popup {
     this._popupButton.addEventListener("click", (evt) => {
       evt.preventDefault();
       this._handleDeleteSubmit(this._card, this._id);
-      this.close();
     });
   }
 
