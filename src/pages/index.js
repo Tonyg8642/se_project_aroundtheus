@@ -75,6 +75,7 @@ const deleteConfirmation = new DeleteConfirmation({
       .deleteCard(_id)
       .then(() => {
         card.remove();
+        deleteConfirmation.close();
       })
       .catch((e) => {
         console.log(e);
@@ -135,6 +136,7 @@ const editAvatarModal = new PopupWithForm({
         //});
         userInfo.setAvatar(formValues.avatar);
         editAvatarModal.close();
+        editAvatarForm.reset();
       })
       .catch((e) => {
         console.log(e);
