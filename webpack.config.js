@@ -39,7 +39,7 @@ module.exports = {
           {
             loader: "css-loader",
           },
-          "postcss-loader",
+          // "postcss-loader",
         ],
       },
       {
@@ -51,6 +51,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      favicon: "./favicon.ico",
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
